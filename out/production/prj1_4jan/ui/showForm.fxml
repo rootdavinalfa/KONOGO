@@ -112,6 +112,8 @@
                                  </font>
                               </Label>
                               <ButtonBar layoutX="358.0" layoutY="3.0" prefHeight="40.0" prefWidth="200.0" />
+                              <Button fx:id="btn_XCEL" layoutX="12.0" layoutY="343.0" mnemonicParsing="false" onAction="#exportXCEL" prefHeight="50.0" prefWidth="137.0" text="EXPORT TO EXCEL" />
+                              <Label layoutX="164.0" layoutY="360.0" text="Export button just work for production list as per today!" />
                            </children>
                         </AnchorPane>
                   </content>
