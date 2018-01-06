@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+  ~ Copyright (c) $today.year.Davin Alfarizky Putra Basudewa.This software is for educational only
+  -->
+
+<VBox prefHeight="466.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.showFormControl">
+  <children>
+    <MenuBar prefHeight="88.0" prefWidth="640.0" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About Prj1_4Jan" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <TabPane layoutY="-57.0" prefHeight="432.0" prefWidth="792.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Hasil Produksi">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <TableView fx:id="tableView" layoutY="146.0" prefHeight="185.0" prefWidth="792.0">
+                                <columns>
+                                  <TableColumn fx:id="code_partCOL" prefWidth="102.0" text="Code Part" />
+                                  <TableColumn fx:id="nama_partCOL" prefWidth="107.0" text="Nama Part" />
+                                    <TableColumn fx:id="material_nameCOL" prefWidth="70.0" text="Material" />
+                                    <TableColumn fx:id="berat__partCOL" prefWidth="47.0" text="Berat" />
+                                    <TableColumn fx:id="dateCOL" prefWidth="125.0" text="Date" />
+                                    <TableColumn fx:id="produksi_goodCOL" prefWidth="66.0" text="Output OK" />
+                                    <TableColumn fx:id="produksi_ngCOL" prefWidth="76.0" text="Output NG" />
+                                    <TableColumn fx:id="total_produksiCOL" prefWidth="102.0" text="Output Total" />
+                                    <TableColumn fx:id="kode_produksiCOL" prefWidth="96.0" text="Kode Produksi" />
+                                </columns>
+                              </TableView>
+                              <Label layoutX="14.0" layoutY="33.0" text="Kode Produksi">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="67.0" text="Code Part">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="101.0" text="Date">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txt_kodeproduksi" layoutX="212.0" layoutY="38.0" prefHeight="25.0" prefWidth="195.0" promptText="Insert Code" />
+                              <TextField fx:id="txt_kodepart" layoutX="212.0" layoutY="72.0" prefHeight="25.0" prefWidth="195.0" promptText="Insert Code Part" />
+                              <DatePicker fx:id="date" layoutX="212.0" layoutY="104.0" prefHeight="27.0" prefWidth="195.0" promptText="Insert Date" />
+                              <RadioButton fx:id="rdbtn_kp" layoutX="521.0" layoutY="42.0" mnemonicParsing="false" onAction="#rdbtn_kp" text="Kode Produksi" />
+                              <RadioButton fx:id="rdbtn_cp" layoutX="520.0" layoutY="64.0" mnemonicParsing="false" onAction="#rdbtn_cp" text="Code Part" />
+                              <RadioButton fx:id="rdbtn_date" layoutX="521.0" layoutY="89.0" mnemonicParsing="false" onAction="#rdbtn_date" text="Date" />
+                              <Button layoutX="632.0" layoutY="44.0" mnemonicParsing="false" onAction="#searchData" prefHeight="56.0" prefWidth="87.0" text="Search" />
+                              <Button layoutX="729.0" layoutY="45.0" mnemonicParsing="false" onAction="#clearTable" prefHeight="56.0" prefWidth="55.0" text="Clear" />
+                              <Label layoutX="422.0" layoutY="42.0" text="Cari Berdasarkan :" />
+                              <Label fx:id="nama_partTXT" layoutX="10.0" layoutY="355.0">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="total_produksiokTXT" layoutX="201.0" layoutY="355.0" textFill="#035e07">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="total_produksingTXT" layoutX="358.0" layoutY="355.0" textFill="#650404">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="total_produksi" layoutX="491.0" layoutY="355.0" textFill="#0e0ea1">
+                                 <font>
+                                    <Font size="33.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="dateDisplay" layoutX="422.0" layoutY="106.0" prefHeight="35.0" prefWidth="362.0" textFill="#790101">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <ButtonBar layoutX="358.0" layoutY="3.0" prefHeight="40.0" prefWidth="200.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Statistic">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="10.0" layoutY="140.0" prefHeight="55.0" prefWidth="772.0" text="THIS SECTION IS NOT AVAILABLE AT THIS TIME">
+                                 <font>
+                                    <Font size="32.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
