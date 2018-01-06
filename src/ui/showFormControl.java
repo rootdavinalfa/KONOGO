@@ -26,9 +26,14 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ui.davin.alert;
 import ui.listShow;
 
+import javax.xml.transform.Result;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -88,12 +93,13 @@ public class showFormControl implements Initializable{
     private TableColumn<listShow,String> total_produksiCOL;
     @FXML
     private TableColumn<listShow,String> kode_produksiCOL;
-
+    @FXML
+    private Button btn_XCEL;
 
     private ObservableList<listShow> data = FXCollections.observableArrayList();
 
     public void initialize(URL url, ResourceBundle rb){
-
+        btn_XCEL.setDisable(true);
         radiobutton();
         setCurrentTime();
 
@@ -148,6 +154,7 @@ public class showFormControl implements Initializable{
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+
     @SuppressWarnings("Duplicates")
     private void ifKP(){
         String a = txt_kodeproduksi.getText();
@@ -240,12 +247,65 @@ public class showFormControl implements Initializable{
             }
             tableView.setItems(getlistShow());
             conDA.close();
+            btn_XCEL.setDisable(false);
         }
         catch (Exception e){
 
         }
     }
+    @FXML protected void exportXCEL(ActionEvent event){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String c = (date.getValue()).format(formatter);
+        try{
+            Class.forName("driver.com.davin.connector");
+            Connection conX = null;
+            Statement stmtX = null;
+            ResultSet rsX = null;
+            conX = connector.setConnection();
+            stmtX= conX.createStatement();
+            rsX = stmtX.executeQuery("SELECT * FROM date_produksi WHERE date='"+c+"';");
 
+            XSSFWorkbook wb = new XSSFWorkbook();
+            XSSFSheet sheet = wb.createSheet("List Produksi");
+            XSSFRow header = sheet.createRow(0);
+
+            //Create Header
+            header.createCell(0).setCellValue("ID Part");
+            header.createCell(1).setCellValue("Tanggal Produksi");
+            header.createCell(2).setCellValue("Produksi GOOD");
+            header.createCell(3).setCellValue("Produksi NG");
+            header.createCell(4).setCellValue("Total Output");
+            header.createCell(5).setCellValue("Kode Produksi");
+
+            //Set column
+            sheet.autoSizeColumn(0);
+            sheet.setColumnWidth(1, 256*25);//256-character width
+            sheet.autoSizeColumn(2);
+            sheet.autoSizeColumn(3);
+            sheet.autoSizeColumn(4);
+            sheet.autoSizeColumn(5);
+            int index = 1;
+            while(rsX.next()){
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(rsX.getString(1));
+                row.createCell(1).setCellValue(rsX.getString(2));
+                row.createCell(2).setCellValue(rsX.getString(3));
+                row.createCell(3).setCellValue(rsX.getString(4));
+                row.createCell(4).setCellValue(rsX.getString(5));
+                row.createCell(5).setCellValue(rsX.getString(6));
+                index++;
+            }
+            FileOutputStream fileOut = new FileOutputStream("List Produksi.xlsx");
+            wb.write(fileOut);
+            fileOut.close();
+            alert al=new alert();
+            al.info_export();
+        }
+        catch (Exception e){
+            System.out.println(e);
+
+        }
+    }
     @FXML protected void clearTable(ActionEvent event){
         clearTF();
     }
